@@ -36,6 +36,36 @@ app.post("/url/request", (req, res) => {
 
 });
 
+app.post("/elements-api/items/:id/download_and_license.json", (req, res) => {
+    const { id, csrf_1, csrf_2, cookie } = req.params;
+
+    try {
+        var options = {
+            'method': 'POST',
+            'url': `https://elements.envato.com/api/v1/items/${id}/download_and_license.json`,
+            'headers': {
+                'Content-Type': 'application/json',
+                'x-csrf-token': csrf_1,
+                'x-csrf-token-2': csrf_2,
+                'cookie': cookie,
+            },
+
+            body: JSON.stringify({
+                "licenseType": "trial"
+            })
+
+        };
+        request(options, function (error, response) {
+            if (error) res.send(error); else
+                res.send(response?.body);
+
+        });
+
+    } catch (error) {
+        res.send(error);
+    }
+});
+
 app.listen(5000, () => {
     console.log("Server is running on port 3000");
 });
