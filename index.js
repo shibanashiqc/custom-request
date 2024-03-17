@@ -37,7 +37,8 @@ app.post("/url/request", (req, res) => {
 });
 
 app.post("/elements-api/items/:id/download_and_license.json", (req, res) => {
-    const { id, csrf_1, csrf_2, cookie } = req.params;
+    const { id } = req.params;
+    const { csrf_1, csrf_2, cookie } = req.body;
 
     try {
         var options = {
